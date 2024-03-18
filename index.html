@@ -13,19 +13,37 @@
 <body class="p-1 ">
     <h1>Monster Manual</h1>
     <div class="text-center">
-        <label for="start">Inizia per</label>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="ricerca" id="start" value="option1">
+            <label class="form-check-label" for="start">Inizia con</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="ricerca" id="include" value="option2" checked>
+            <label class="form-check-label" for="include" >Include</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="ricerca" id="perfect" value="option3">
+            <label class="form-check-label" for="perfect">Perfect Match</label>
+          </div>
+        <!-- <label for="start">Inizia per</label>
         <input type="radio" name="ricerca" id="start" value="start">
         <label for="include">Include</label>
         <input type="radio" name="ricerca" id="include" value="include" checked>
         <label for="include">Perfect Match</label>
-        <input type="radio" name="ricerca" id="perfect" value="perfect" >
+        <input type="radio" name="ricerca" id="perfect" value="perfect" > -->
         <br>
-        <label for="search">Cerca un mostro</label>
-        <input type="text" name="search" id="search">
-        <br>
-        <button id="btn1" class="btn btn-secondary">Aggiungi scheda</button>
-        <button id="clear" class="btn btn-secondary ">Clear</button>
-    </div>
+        <form class="form-inline d-flex flex-wrap justify-content-center ">
+            <div class="form-floating  ">
+                <input type="text" class="form-control" id="search">
+                <label for="search">Cerca un mostro</label>
+              </div>
+              <!-- <label for="search">Cerca un mostro</label>
+                <input type="text" name="search" id="search"> -->
+                <br>
+                <button id="btn1" class="btn btn-secondary mx-2 ">Aggiungi scheda</button>
+                <button id="clear" class="btn btn-secondary mx-2 ">Clear</button>
+            </form>
+            </div>
     <div class="container-fluid">
         <div id="wrapper" class="row p-2">
             <!-- <article class="col-12 col-md-4 mt-4">

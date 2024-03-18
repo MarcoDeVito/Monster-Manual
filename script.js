@@ -60,10 +60,10 @@ function findMoster(search) {
             research= element.Name.toLowerCase()===search.toLowerCase();
         }
         if (research) {
-            console.log('Name: ' + element.Name);
-            console.log('HP: ' + element.HP.Value);
-            console.log('FOR: ' + element.Abilities.Str);
-            console.log('Resistenze: ' + element.DamageResistances);
+            // console.log('Name: ' + element.Name);
+            // console.log('HP: ' + element.HP.Value);
+            // console.log('FOR: ' + element.Abilities.Str);
+            // console.log('Resistenze: ' + element.DamageResistances);
             i++;
             numID++;
 

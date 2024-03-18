@@ -1,0 +1,32 @@
+/* #wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+} */
+p {
+    padding: 0;
+}
+article {
+    position: relative;
+    /* width: 30%; */
+    border: 1px solid grey;
+    /* margin-left: 1rem ; */
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0rem 1rem 0.7rem grey;
+    background-color: rgba(238, 203, 47, 0.5);
+    
+}
+h2, h1{
+    text-align: center;
+}
+
+.canc{
+    position: absolute;
+    right: 0.2rem;
+    top: 0rem;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+
+}

@@ -16,15 +16,15 @@
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="ricerca" id="start" value="option1">
             <label class="form-check-label" for="start">Inizia con</label>
-          </div>
-          <div class="form-check form-check-inline">
+        </div>
+        <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="ricerca" id="include" value="option2" checked>
-            <label class="form-check-label" for="include" >Include</label>
-          </div>
-          <div class="form-check form-check-inline">
+            <label class="form-check-label" for="include">Include</label>
+        </div>
+        <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="ricerca" id="perfect" value="option3">
             <label class="form-check-label" for="perfect">Perfect Match</label>
-          </div>
+        </div>
         <!-- <label for="start">Inizia per</label>
         <input type="radio" name="ricerca" id="start" value="start">
         <label for="include">Include</label>
@@ -32,61 +32,79 @@
         <label for="include">Perfect Match</label>
         <input type="radio" name="ricerca" id="perfect" value="perfect" > -->
         <br>
-        <form class="form-inline d-flex flex-wrap justify-content-center ">
+        <div class="form-inline d-flex flex-wrap justify-content-center ">
             <div class="form-floating  ">
                 <input type="text" class="form-control" id="search">
                 <label for="search">Cerca un mostro</label>
-              </div>
-              <!-- <label for="search">Cerca un mostro</label>
-                <input type="text" name="search" id="search"> -->
-                <br>
-                <button id="btn1" class="btn btn-secondary mx-2 ">Aggiungi scheda</button>
-                <button id="clear" class="btn btn-secondary mx-2 ">Clear</button>
-            </form>
             </div>
+            <!-- <label for="search">Cerca un mostro</label>
+                <input type="text" name="search" id="search"> -->
+            <br>
+            <button id="btn1" class="btn btn-secondary mx-2 ">Aggiungi scheda</button>
+            <button id="clear" class="btn btn-secondary mx-2 ">Clear</button>
+        </div>
+    </div>
     <div class="container-fluid">
         <div id="wrapper" class="row p-2">
             <!-- <article class="col-12 col-md-4 mt-4">
                 <h2>${element.Name}</h2>
-                <div class="container-fluid">
-                    <div class="row justify-content-center  ">
+                <p class="text-center">medium undead, lawful evil</p>
+                <hr>
+                <p><strong>Armor Class:</strong> 13 (armor scraps)</p>
+                <p><strong>HP:</strong> ${element.HP.Value} ()</p>
+                <p><strong>Speed:</strong> ${element.Speed} </p>
 
-                        <div class="col-12 col-md-6">
+
+
+                <hr>
+                <div class="container-fluid">
+                    <div class="row justify-content-center text-center   ">
+
+                        <div class="col-12 col-md-6 ">
                             <div class="row">
                                 <p class="col-4"><strong>FOR</strong></p>
                                 <p class="col-4"><strong>DES</strong></p>
                                 <p class="col-4"><strong>CON</strong></p>
-                                <p class="col-4">10</p>
-                                <p class="col-4">10</p>
-                                <p class="col-4">10</p>
+                                <p class="col-4">10 (<strong>0</strong>)</p>
+                                <p class="col-4">10 (<strong>0</strong>)</p>
+                                <p class="col-4">10 (<strong>0</strong>)</p>
                             </div>
                         </div>
-                        
+
                         <div class="col-12 col-md-6">
                             <div class="row">
                                 <p class="col-4"><strong>INT</strong></p>
                                 <p class="col-4"><strong>SAG</strong></p>
                                 <p class="col-4"><strong>CAR</strong></p>
-                                <p class="col-4">10</p>
-                                <p class="col-4">10</p>
-                                <p class="col-4">10</p>
+                                <p class="col-4">10 (<strong>0</strong>)</p>
+                                <p class="col-4">10 (<strong>0</strong>)</p>
+                                <p class="col-4">10 (<strong>0</strong>)</p>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
-                <ul>
-                    <li><strong>HP</strong>: ${element.HP.Value}</li>
-                    
-                </ul>
-                <button class="canc" id="prova" onClick="canc(this.id)">X</button>
+                <hr>
+                <p><strong>Vulnerabilities:</strong> ${element.Speed} </p>
+                <p><strong>Damage Immunities:</strong> ${element.Speed} </p>
+                <p><strong>Condition Immunities:</strong> ${element.Speed} </p>
+                <p><strong>Senses:</strong> ${element.Speed} </p>
+                <p><strong>Condition :</strong> ${element.Speed} </p>
+                <p><strong>Languages:</strong> ${element.Speed} </p>
+                <p><strong>Challenge:</strong> ${element.Speed} </p>
+                <hr>
+                <p>action</p>
+                <p>action</p>
+
+                
+                <button class="canc" id="${numID}" onClick="canc(this.id)">X</button>
             </article> -->
         </div>
     </div>
 
     <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script> -->
 
 </html>

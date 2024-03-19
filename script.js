@@ -1,3 +1,4 @@
+console.log(`pagina ricaricata`);
 let monsterManual = {};
 let btn1 = document.querySelector("#btn1")
 let clear = document.querySelector("#clear")
@@ -36,7 +37,9 @@ request.onload = function () {
     //   console.log(`finito!`);
     //   const gfg = JSON.stringify(monsterManual);
     //   console.log(gfg);
-      console.log(monsterManual);
+    //   console.log(monsterManual);
+      console.log(monsterManual.monsters[369]);
+
 
 }
 
@@ -45,10 +48,10 @@ function findMoster(search) {
     if (search === '*') {
         search = "";
     }
-    if (notFound) {
-        wrapper.innerHTML = "";
-        notFound = false;
-    }
+    // if (notFound) {
+    //     wrapper.innerHTML = "";
+    //     notFound = false;
+    // }
     monsterManual.monsters.forEach(element => {
         if(include.checked){
             research= element.Name.toLowerCase().includes(search.toLowerCase());
@@ -71,6 +74,15 @@ function findMoster(search) {
             articolo.setAttribute('id',`article${numID}`)
             articolo.classList.add("col-12","mt-4","col-md-4","col-sm-6")
             articolo.innerHTML = `<h2>${element.Name}</h2>
+            <p class="text-center">${element.Type}</p>
+            <hr>
+            <p><strong>Armor Class:</strong> ${element.AC.Value} ${element.AC.Notes}</p>
+            <p><strong>HP:</strong> ${element.HP.Value} ${element.HP.Notes}</p>
+            <p><strong>Speed:</strong> ${element.Speed} </p>
+
+
+
+            <hr>
             <div class="container-fluid">
                     <div class="row justify-content-center text-center   ">
 
@@ -98,18 +110,24 @@ function findMoster(search) {
                         
                     </div>
                 </div>
-            <ul>
-                <li><strong>HP</strong>: ${element.HP.Value}</li>
-                
-            </ul>
-            <button class="canc" id="${numID}" onClick="canc(this.id)">X</button>`;
+                <hr>
+                <p><strong>Vulnerabilities:</strong> ${element.DamageVulnerabilities} </p>
+                <p><strong>Damage Immunities:</strong> ${element.DamageImmunities} </p>
+                <p><strong>Condition Immunities:</strong> ${element.ConditionImmunities} </p>
+                <p><strong>Senses:</strong> ${element.Senses} </p>
+                <p><strong>Languages:</strong> ${element.Languages} </p>
+                <p><strong>Challenge:</strong> ${element.Challenge} </p>
+                <hr>`;
+            element.Actions.forEach(el => articolo.innerHTML+=`<p><strong>${el.Name}:</strong> ${el.Content} </p>
+            <button class="canc" id="${numID}" onClick="canc(this.id)">X</button>`);
             wrapper.appendChild(articolo);
         }
     });
     if (i == 0) {
 
-        wrapper.innerHTML = `<h3 style="margin-top: 2rem" class="text-center">Nessun elemento trovato</h3>`;
-        notFound = true;
+        // wrapper.innerHTML = `<h3 style="margin-top: 2rem" class="text-center">Nessun elemento trovato</h3>`;
+        alert('Mostro non trovato')
+        
 
     }
     else {
@@ -135,7 +153,10 @@ search.addEventListener("keypress", function (event) {
 
 clear.addEventListener('click', () => {
     wrapper.innerHTML = "";
-    notFound = true;
+    
+    console.log(start.checked);
+    console.log(include.checked);
+    console.log(perfect.checked);
    
 
 

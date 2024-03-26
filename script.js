@@ -14,7 +14,7 @@ let research;
 
 
 
-let requestURL = './Monster-Manual-ord.json';
+let requestURL = 'https://marcodevito.github.io/Monster-Manual/Monster-Manual-ord.JSON';
 let request = new XMLHttpRequest();
 request.open('GET', requestURL);
 request.responseType = 'json';

@@ -38,7 +38,7 @@ request.onload = function () {
     //   const gfg = JSON.stringify(monsterManual);
     //   console.log(gfg);
     //   console.log(monsterManual);
-      console.log(monsterManual.monsters[369]);
+      console.log(monsterManual.monsters[7]);
 
 
 }
@@ -67,18 +67,46 @@ function findMoster(search) {
             // console.log('HP: ' + element.HP.Value);
             // console.log('FOR: ' + element.Abilities.Str);
             // console.log('Resistenze: ' + element.DamageResistances);
+           
+           function calcoloDistanze(array) {
+            let speedArray =[];
+            array.forEach(el=>{ 
+                let accomp=el.split(" ");
+                accomp.forEach((el,index)=>{
+                    
+                    
+                    if(el=="ft."){
+                        accomp[index]="m."
+                        
+                    }
+
+
+                    else if(!isNaN(parseInt(el))){
+                        accomp[index]=el*0.3
+                    }
+                })
+                
+                let accompArray=accomp.join(" ");
+                speedArray.push(accompArray)
+            })
+            if(speedArray.length>1)
+            {speedArray= speedArray.join(", ")}
+            return speedArray;
+           }
+
+            
             i++;
             numID++;
 
             let articolo = document.createElement('article');
             articolo.setAttribute('id',`article${numID}`)
-            articolo.classList.add("col-12","mt-4","col-md-4","col-sm-6")
+            articolo.classList.add("col-12","mt-4","col-md-6","col-xl-4")
             articolo.innerHTML = `<h2>${element.Name}</h2>
             <p class="text-center">${element.Type}</p>
             <hr>
             <p><strong>Armor Class:</strong> ${element.AC.Value} ${element.AC.Notes}</p>
             <p><strong>HP:</strong> ${element.HP.Value} ${element.HP.Notes}</p>
-            <p><strong>Speed:</strong> ${element.Speed} </p>
+            <p><strong>Speed:</strong> ${calcoloDistanze(element.Speed)} </p>
 
 
 
@@ -114,7 +142,7 @@ function findMoster(search) {
                 <p><strong>Vulnerabilities:</strong> ${element.DamageVulnerabilities} </p>
                 <p><strong>Damage Immunities:</strong> ${element.DamageImmunities} </p>
                 <p><strong>Condition Immunities:</strong> ${element.ConditionImmunities} </p>
-                <p><strong>Senses:</strong> ${element.Senses} </p>
+                <p><strong>Senses:</strong> ${calcoloDistanze(element.Senses)} </p>
                 <p><strong>Languages:</strong> ${element.Languages} </p>
                 <p><strong>Challenge:</strong> ${element.Challenge} </p>
                 <hr>`;

@@ -114,7 +114,7 @@ function findMoster(search) {
 
             <hr>
             <div class="container-fluid">
-                    <div class="row justify-content-center text-center   ">
+                    <div class="row justify-content-center text-center">
 
                         <div class="col-12 col-md-6 ">
                             <div class="row">
@@ -142,9 +142,9 @@ function findMoster(search) {
                 </div>
                 <hr>
                 <p><strong>Vulnerabilities:</strong> ${element.DamageVulnerabilities} </p>
-                <p><strong>Damage Immunities:</strong> ${element.DamageImmunities} </p>
-                <p><strong>Condition Immunities:</strong> ${element.ConditionImmunities} </p>
-                <p><strong>Senses:</strong> ${calcoloDistanze(element.Senses)} </p>
+                <p><strong>Damage Immunities:</strong> ${element.DamageImmunities}</p>
+                <p><strong>Condition Immunities:</strong> ${element.ConditionImmunities.join(", ")}</p>
+                <p><strong>Senses:</strong> ${calcoloDistanze(element.Senses)}</p>
                 <p><strong>Languages:</strong> ${element.Languages} </p>
                 <p><strong>Challenge:</strong> ${element.Challenge} </p>
                 <hr>`;

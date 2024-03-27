@@ -50,6 +50,7 @@ h2, h1{
 
 #pulsanteInizio{
     text-decoration: none;
+    box-shadow: 1px 6px 1rem grey;
     font-size: 30px;
     font-weight: 900;
     color: ghostwhite;

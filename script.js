@@ -10,7 +10,7 @@ let start = document.querySelector('#start');
 let include = document.querySelector('#include');
 let perfect = document.querySelector('#perfect');
 let research;
-let lettera = 'A'.charCodeAt(0);
+let lettera = []
 
 
 
@@ -183,7 +183,7 @@ search.addEventListener("keypress", function (event) {
 
 clear.addEventListener('click', () => {
     wrapper.innerHTML = "";
-
+    lettera=[]
     console.log(start.checked);
     console.log(include.checked);
     console.log(perfect.checked);
@@ -209,50 +209,71 @@ function calcoloMod(caratteristica) {
 }
 function CalcoloVita(index) {
     // console.log(index);
-    let minus=false;
+    let i;
+    let minus = false;
     let VitaCalcolata = document.querySelector(`#${index}`)
-    index= index.replace("mostro","")
+    index = index.replace("mostro", "")
     // console.log(index);
     // console.log(rollDice(6,6));
-    let dadiCalcolo= monsterManual.monsters[index].HP.Notes
-    dadiCalcolo= dadiCalcolo.replace("(","")
-    dadiCalcolo= dadiCalcolo.replace(")","")
-    if(dadiCalcolo.indexOf("+")==-1){
-        minus=true;
+    let dadiCalcolo = monsterManual.monsters[index].HP.Notes
+    dadiCalcolo = dadiCalcolo.replace("(", "")
+    dadiCalcolo = dadiCalcolo.replace(")", "")
+    if (dadiCalcolo.indexOf("+") == -1) {
+        minus = true;
     }
-    dadiCalcolo= dadiCalcolo.split(/[d+-]/);
-    if(dadiCalcolo[2]==null){
-        dadiCalcolo= rollDice(dadiCalcolo[0],dadiCalcolo[1])
-        
-    }else if(minus){
-        dadiCalcolo= parseInt(rollDice(dadiCalcolo[0],dadiCalcolo[1]))-parseInt(dadiCalcolo[2])
-        if(dadiCalcolo==0){
-            dadiCalcolo=1
+    dadiCalcolo = dadiCalcolo.split(/[d+-]/);
+    if (dadiCalcolo[2] == null) {
+        dadiCalcolo = rollDice(dadiCalcolo[0], dadiCalcolo[1])
+
+    } else if (minus) {
+        dadiCalcolo = parseInt(rollDice(dadiCalcolo[0], dadiCalcolo[1])) - parseInt(dadiCalcolo[2])
+        if (dadiCalcolo == 0) {
+            dadiCalcolo = 1
         }
-        
+
     }
-    else{
-        dadiCalcolo= parseInt(rollDice(dadiCalcolo[0],dadiCalcolo[1]))+parseInt(dadiCalcolo[2])
-        
+    else {
+        dadiCalcolo = parseInt(rollDice(dadiCalcolo[0], dadiCalcolo[1])) + parseInt(dadiCalcolo[2])
+
     }
-    
-        
-    
-    
+
+
+
+
     console.log(monsterManual.monsters[index].HP.Notes);
     console.log(dadiCalcolo);
-    VitaCalcolata.innerHTML +=","+String.fromCharCode(lettera)+": "+dadiCalcolo;
-    lettera++;
+    if (lettera.findIndex((el) => {
+        return el.mostro == index
+    }) == -1) { 
+        
+        inizio ='A'.charCodeAt(0)
+        lettera.push({ "mostro": index, "letterafinale": inizio})
+        i=lettera.findIndex((el) => {
+            return el.mostro == index
+        })
+     }
+    else{
+        i=lettera.findIndex((el) => {
+            return el.mostro == index
+        })
+        lettera[i].letterafinale++ 
+    }
+    VitaCalcolata.innerHTML += "," + String.fromCharCode(lettera[i].letterafinale) + ": " + dadiCalcolo;
+    console.log(lettera);
 }
 
 function cancellaVitaMostri(index) {
-    index= index.replace("vita","")
-    console.log(index);
+    index = index.replace("vita", "")
+    // console.log(index);
     let VitaCalcolata = document.querySelector(`#${index}`)
-    index= index.replace("mostro","")
-    console.log(index);
-    VitaCalcolata.innerHTML= monsterManual.monsters[index].HP.Notes
-    lettera = 'A'.charCodeAt(0);
+    index = index.replace("mostro", "")
+    // console.log(index);
+    VitaCalcolata.innerHTML = monsterManual.monsters[index].HP.Notes
+    let i=lettera.findIndex((el) => {
+        return el.mostro == index
+    })
+    inizio ='A'.charCodeAt(0)
+    lettera[i].letterafinale=inizio-1; 
 
 }
 

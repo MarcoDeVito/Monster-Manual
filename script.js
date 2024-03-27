@@ -48,6 +48,7 @@ function findMoster(search) {
     if (search === '*') {
         search = "";
     }
+    search=search.trim()
     // if (notFound) {
     //     wrapper.innerHTML = "";
     //     notFound = false;

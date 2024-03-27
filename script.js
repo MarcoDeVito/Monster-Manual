@@ -5,11 +5,12 @@ let clear = document.querySelector("#clear")
 let search = document.querySelector("#search")
 let wrapper = document.querySelector("#wrapper")
 let notFound = false;
-let numID=0;
-let start=document.querySelector('#start');
-let include=document.querySelector('#include');
-let perfect=document.querySelector('#perfect');
+let numID = 0;
+let start = document.querySelector('#start');
+let include = document.querySelector('#include');
+let perfect = document.querySelector('#perfect');
 let research;
+let lettera = 'A'.charCodeAt(0);
 
 
 
@@ -30,7 +31,7 @@ request.onload = function () {
     //     if (nameA > nameB) {
     //       return 1;
     //     }
-      
+
     //     // names must be equal
     //     return 0;
     //   });
@@ -38,7 +39,7 @@ request.onload = function () {
     //   const gfg = JSON.stringify(monsterManual);
     //   console.log(gfg);
     //   console.log(monsterManual);
-      console.log(monsterManual.monsters[7]);
+    console.log(monsterManual.monsters[7]);
 
 
 }
@@ -48,66 +49,66 @@ function findMoster(search) {
     if (search === '*') {
         search = "";
     }
-    search=search.trim()
+    search = search.trim()
     // if (notFound) {
     //     wrapper.innerHTML = "";
     //     notFound = false;
     // }
-    monsterManual.monsters.forEach(element => {
-        if(include.checked){
-            research= element.Name.toLowerCase().includes(search.toLowerCase());
+    monsterManual.monsters.forEach((element, mostroIndex) => {
+        if (include.checked) {
+            research = element.Name.toLowerCase().includes(search.toLowerCase());
         }
         if (start.checked) {
-            research= element.Name.toLowerCase().startsWith(search.toLowerCase());
+            research = element.Name.toLowerCase().startsWith(search.toLowerCase());
         }
         if (perfect.checked) {
-            research= element.Name.toLowerCase()===search.toLowerCase();
+            research = element.Name.toLowerCase() === search.toLowerCase();
         }
         if (research) {
             // console.log('Name: ' + element.Name);
             // console.log('HP: ' + element.HP.Value);
             // console.log('FOR: ' + element.Abilities.Str);
             // console.log('Resistenze: ' + element.DamageResistances);
-           
-           function calcoloDistanze(array) {
-            let speedArray =[];
-            array.forEach(el=>{ 
-                let accomp=el.split(" ");
-                accomp.forEach((el,index)=>{
-                    
-                    
-                    if(el=="ft."){
-                        accomp[index]="m."
-                        
-                    }
+
+            function calcoloDistanze(array) {
+                let speedArray = [];
+                array.forEach(el => {
+                    let accomp = el.split(" ");
+                    accomp.forEach((el, index) => {
 
 
-                    else if(!isNaN(parseInt(el))){
-                        accomp[index]=el*0.3
-                    }
+                        if (el == "ft.") {
+                            accomp[index] = "m."
+
+                        }
+
+
+                        else if (!isNaN(parseInt(el))) {
+                            accomp[index] = el * 0.3
+                        }
+                    })
+
+                    let accompArray = accomp.join(" ");
+                    speedArray.push(accompArray)
                 })
-                
-                let accompArray=accomp.join(" ");
-                speedArray.push(accompArray)
-            })
-            if(speedArray.length>1)
-            {speedArray= speedArray.join(", ")}
-            return speedArray;
-           }
+                if (speedArray.length > 1) { speedArray = speedArray.join(", ") }
+                return speedArray;
+            }
 
-            
+
             i++;
             numID++;
 
             let articolo = document.createElement('article');
-            articolo.setAttribute('id',`article${numID}`)
-            articolo.classList.add("col-12","mt-4","col-md-6","col-xl-4")
+            articolo.setAttribute('id', `article${numID}`)
+            articolo.classList.add("col-12", "mt-4", "col-md-6", "col-xl-4")
             articolo.innerHTML = `<h2>${element.Name}</h2>
             <p class="text-center">${element.Type}</p>
             <hr>
             <p><strong>Armor Class:</strong> ${element.AC.Value} ${element.AC.Notes}</p>
-            <p><strong>HP:</strong> ${element.HP.Value} ${element.HP.Notes}</p>
-            <p><strong>Speed:</strong> ${calcoloDistanze(element.Speed)} </p>
+            <p><strong>HP:</strong> ${element.HP.Value} <button class="vitaMostro" id="mostro${mostroIndex}" onClick="CalcoloVita(this.id)">${element.HP.Notes}</button><button class="canc1" id="vitamostro${mostroIndex}" onClick="cancellaVitaMostri(this.id)">X</button>
+            </p>
+            <p><strong>Speed:</strong> ${calcoloDistanze(element.Speed)}</p>
 
 
 
@@ -147,7 +148,7 @@ function findMoster(search) {
                 <p><strong>Languages:</strong> ${element.Languages} </p>
                 <p><strong>Challenge:</strong> ${element.Challenge} </p>
                 <hr>`;
-            element.Actions.forEach(el => articolo.innerHTML+=`<p><strong>${el.Name}:</strong> ${el.Content} </p>
+            element.Actions.forEach(el => articolo.innerHTML += `<p><strong>${el.Name}:</strong> ${el.Content} </p>
             <button class="canc" id="${numID}" onClick="canc(this.id)">X</button>`);
             wrapper.appendChild(articolo);
         }
@@ -156,19 +157,19 @@ function findMoster(search) {
 
         // wrapper.innerHTML = `<h3 style="margin-top: 2rem" class="text-center">Nessun elemento trovato</h3>`;
         alert('Mostro non trovato')
-        
+
 
     }
     else {
         console.log(`trovate ${i} entry`);
     }
-    
+
 }
 
 btn1.addEventListener('click', () => {
-    if (search.value != 0){
+    if (search.value != 0) {
         findMoster(search.value);
-        search.value="";
+        search.value = "";
     }
 
 })
@@ -182,11 +183,11 @@ search.addEventListener("keypress", function (event) {
 
 clear.addEventListener('click', () => {
     wrapper.innerHTML = "";
-    
+
     console.log(start.checked);
     console.log(include.checked);
     console.log(perfect.checked);
-   
+
 
 
 })
@@ -197,12 +198,72 @@ function canc(clickedID) {
     wrapper.removeChild(articolo)
 }
 
-function calcoloMod(caratteristica){
-    let Modificatore= Math.floor((caratteristica-10)/2);
-    if (Modificatore>0) {
-        return "+"+Modificatore;
+function calcoloMod(caratteristica) {
+    let Modificatore = Math.floor((caratteristica - 10) / 2);
+    if (Modificatore > 0) {
+        return "+" + Modificatore;
     }
     else {
         return Modificatore;
     }
+}
+function CalcoloVita(index) {
+    // console.log(index);
+    let minus=false;
+    let VitaCalcolata = document.querySelector(`#${index}`)
+    index= index.replace("mostro","")
+    // console.log(index);
+    // console.log(rollDice(6,6));
+    let dadiCalcolo= monsterManual.monsters[index].HP.Notes
+    dadiCalcolo= dadiCalcolo.replace("(","")
+    dadiCalcolo= dadiCalcolo.replace(")","")
+    if(dadiCalcolo.indexOf("+")==-1){
+        minus=true;
+    }
+    dadiCalcolo= dadiCalcolo.split(/[d+-]/);
+    if(dadiCalcolo[2]==null){
+        dadiCalcolo= rollDice(dadiCalcolo[0],dadiCalcolo[1])
+        
+    }else if(minus){
+        dadiCalcolo= parseInt(rollDice(dadiCalcolo[0],dadiCalcolo[1]))-parseInt(dadiCalcolo[2])
+        if(dadiCalcolo==0){
+            dadiCalcolo=1
+        }
+        
+    }
+    else{
+        dadiCalcolo= parseInt(rollDice(dadiCalcolo[0],dadiCalcolo[1]))+parseInt(dadiCalcolo[2])
+        
+    }
+    
+        
+    
+    
+    console.log(monsterManual.monsters[index].HP.Notes);
+    console.log(dadiCalcolo);
+    VitaCalcolata.innerHTML +=","+String.fromCharCode(lettera)+": "+dadiCalcolo;
+    lettera++;
+}
+
+function cancellaVitaMostri(index) {
+    index= index.replace("vita","")
+    console.log(index);
+    let VitaCalcolata = document.querySelector(`#${index}`)
+    index= index.replace("mostro","")
+    console.log(index);
+    VitaCalcolata.innerHTML= monsterManual.monsters[index].HP.Notes
+    lettera = 'A'.charCodeAt(0);
+
+}
+
+
+function rollDice(rolls = 1, die = 6) {
+    console.log("inizio calcolo");
+    let diceSum = 0;
+    for (let i = 0; i < rolls; i++) {
+        let resDice = Math.floor(Math.random() * (die) + 1);
+        console.log(resDice);
+        diceSum += resDice;
+    }
+    return diceSum
 }

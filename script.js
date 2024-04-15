@@ -1,6 +1,6 @@
 console.log(`pagina ricaricata`);
 let monsterManual = {};
-let btn1 = document.querySelector("#btn1")
+// let btn1 = document.querySelector("#btn1")
 let clear = document.querySelector("#clear")
 let search = document.querySelector("#search")
 let wrapper = document.querySelector("#wrapper")
@@ -16,42 +16,171 @@ let lettera = []
 
 
 let requestURL = 'https://marcodevito.github.io/Monster-Manual/Monster-Manual-ord.JSON';
-let request = new XMLHttpRequest();
-request.open('GET', requestURL);
-request.responseType = 'json';
-request.send();
-request.onload = function () {
-    monsterManual = request.response;
-    // monsterManual.monsters.sort((a, b) => {
-    //     const nameA = a.Name.toUpperCase(); // ignore upper and lowercase
-    //     const nameB = b.Name.toUpperCase(); // ignore upper and lowercase
-    //     if (nameA < nameB) {
-    //       return -1;
-    //     }
-    //     if (nameA > nameB) {
-    //       return 1;
-    //     }
 
-    //     // names must be equal
-    //     return 0;
-    //   });
-    //   console.log(`finito!`);
-    //   const gfg = JSON.stringify(monsterManual);
-    //   console.log(gfg);
-    //   console.log(monsterManual);
-    console.log(monsterManual.monsters[7]);
 
+fetch(requestURL).then((response) => response.json()).then((data) => {
+ console.log(data);
+ monsterManual = data;
+ console.log(monsterManual.monsters[7]);
+
+
+
+// btn1.addEventListener('click', () => {
+//     if (search.value != 0) {
+//         findMoster(search.value);
+//         search.value = "";
+//     }
+
+// })
+
+search.addEventListener("input", () => {
+    
+    if (search.value != 0) {
+        findMoster(search.value);
+        // search.value = "";
+    }
+  
+});
+
+clear.addEventListener('click', () => {
+    wrapper.innerHTML = "";
+    lettera=[]
+    console.log(start.checked);
+    console.log(include.checked);
+    console.log(perfect.checked);
+
+
+
+})
+
+let radios = document.querySelectorAll(".form-check-input")
+
+
+radios.forEach(button => {
+    button.addEventListener("click", () => {  
+        if (search.value != 0) {
+            findMoster(search.value);
+         
+        }
+    });
+
+})
+
+
+
+
+
+
+});
+
+function rollDice(rolls = 1, die = 6) {
+    console.log("inizio calcolo");
+    let diceSum = 0;
+    for (let i = 0; i < rolls; i++) {
+        let resDice = Math.floor(Math.random() * (die) + 1);
+        console.log(resDice);
+        diceSum += resDice;
+    }
+    return diceSum
+}
+
+function CalcoloVita(index) {
+    // console.log(index);
+    let i;
+    let minus = false;
+    let VitaCalcolata = document.querySelector(`#${index}`)
+    index = index.replace("mostro", "")
+    // console.log(index);
+    // console.log(rollDice(6,6));
+    let dadiCalcolo = monsterManual.monsters[index].HP.Notes
+    dadiCalcolo = dadiCalcolo.replace("(", "")
+    dadiCalcolo = dadiCalcolo.replace(")", "")
+    if (dadiCalcolo.indexOf("+") == -1) {
+        minus = true;
+    }
+    dadiCalcolo = dadiCalcolo.split(/[d+-]/);
+    if (dadiCalcolo[2] == null) {
+        dadiCalcolo = rollDice(dadiCalcolo[0], dadiCalcolo[1])
+
+    } else if (minus) {
+        dadiCalcolo = parseInt(rollDice(dadiCalcolo[0], dadiCalcolo[1])) - parseInt(dadiCalcolo[2])
+        if (dadiCalcolo == 0) {
+            dadiCalcolo = 1
+        }
+
+    }
+    else {
+        dadiCalcolo = parseInt(rollDice(dadiCalcolo[0], dadiCalcolo[1])) + parseInt(dadiCalcolo[2])
+
+    }
+
+
+
+
+    console.log(monsterManual.monsters[index].HP.Notes);
+    console.log(dadiCalcolo);
+    if (lettera.findIndex((el) => {
+        return el.mostro == index
+    }) == -1) { 
+        
+        inizio ='A'.charCodeAt(0)
+        lettera.push({ "mostro": index, "letterafinale": inizio})
+        i=lettera.findIndex((el) => {
+            return el.mostro == index
+        })
+     }
+    else{
+        i=lettera.findIndex((el) => {
+            return el.mostro == index
+        })
+        lettera[i].letterafinale++ 
+    }
+    VitaCalcolata.innerHTML += "," + String.fromCharCode(lettera[i].letterafinale) + ": " + dadiCalcolo;
+    console.log(lettera);
+}
+
+function cancellaVitaMostri(index) {
+    index = index.replace("vita", "")
+    // console.log(index);
+    let VitaCalcolata = document.querySelector(`#${index}`)
+    index = index.replace("mostro", "")
+    // console.log(index);
+    VitaCalcolata.innerHTML = monsterManual.monsters[index].HP.Notes
+    let i=lettera.findIndex((el) => {
+        return el.mostro == index
+    })
+    inizio ='A'.charCodeAt(0)
+    lettera[i].letterafinale=inizio-1; 
 
 }
 
+
+function canc(clickedID) {
+    console.log(clickedID);
+    let articolo = document.querySelector(`#article${clickedID}`)
+    wrapper.removeChild(articolo)
+}
+
+function calcoloMod(caratteristica) {
+    let Modificatore = Math.floor((caratteristica - 10) / 2);
+    if (Modificatore > 0) {
+        return "+" + Modificatore;
+    }
+    else {
+        return Modificatore;
+    }
+}
+
+
 function findMoster(search) {
     let i = 0;
+
     if (search === '*') {
         search = "";
     }
     search = search.trim()
     // if (notFound) {
-    //     wrapper.innerHTML = "";
+        wrapper.innerHTML = "";
     //     notFound = false;
     // }
     monsterManual.monsters.forEach((element, mostroIndex) => {
@@ -155,8 +284,8 @@ function findMoster(search) {
     });
     if (i == 0) {
 
-        // wrapper.innerHTML = `<h3 style="margin-top: 2rem" class="text-center">Nessun elemento trovato</h3>`;
-        alert('Mostro non trovato')
+        wrapper.innerHTML = `<h3 style="margin-top: 2rem" class="text-center">Nessun elemento trovato</h3>`;
+        // alert('Mostro non trovato')
 
 
     }
@@ -164,127 +293,4 @@ function findMoster(search) {
         console.log(`trovate ${i} entry`);
     }
 
-}
-
-btn1.addEventListener('click', () => {
-    if (search.value != 0) {
-        findMoster(search.value);
-        search.value = "";
-    }
-
-})
-
-search.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        btn1.click();
-    }
-});
-
-clear.addEventListener('click', () => {
-    wrapper.innerHTML = "";
-    lettera=[]
-    console.log(start.checked);
-    console.log(include.checked);
-    console.log(perfect.checked);
-
-
-
-})
-
-function canc(clickedID) {
-    console.log(clickedID);
-    let articolo = document.querySelector(`#article${clickedID}`)
-    wrapper.removeChild(articolo)
-}
-
-function calcoloMod(caratteristica) {
-    let Modificatore = Math.floor((caratteristica - 10) / 2);
-    if (Modificatore > 0) {
-        return "+" + Modificatore;
-    }
-    else {
-        return Modificatore;
-    }
-}
-function CalcoloVita(index) {
-    // console.log(index);
-    let i;
-    let minus = false;
-    let VitaCalcolata = document.querySelector(`#${index}`)
-    index = index.replace("mostro", "")
-    // console.log(index);
-    // console.log(rollDice(6,6));
-    let dadiCalcolo = monsterManual.monsters[index].HP.Notes
-    dadiCalcolo = dadiCalcolo.replace("(", "")
-    dadiCalcolo = dadiCalcolo.replace(")", "")
-    if (dadiCalcolo.indexOf("+") == -1) {
-        minus = true;
-    }
-    dadiCalcolo = dadiCalcolo.split(/[d+-]/);
-    if (dadiCalcolo[2] == null) {
-        dadiCalcolo = rollDice(dadiCalcolo[0], dadiCalcolo[1])
-
-    } else if (minus) {
-        dadiCalcolo = parseInt(rollDice(dadiCalcolo[0], dadiCalcolo[1])) - parseInt(dadiCalcolo[2])
-        if (dadiCalcolo == 0) {
-            dadiCalcolo = 1
-        }
-
-    }
-    else {
-        dadiCalcolo = parseInt(rollDice(dadiCalcolo[0], dadiCalcolo[1])) + parseInt(dadiCalcolo[2])
-
-    }
-
-
-
-
-    console.log(monsterManual.monsters[index].HP.Notes);
-    console.log(dadiCalcolo);
-    if (lettera.findIndex((el) => {
-        return el.mostro == index
-    }) == -1) { 
-        
-        inizio ='A'.charCodeAt(0)
-        lettera.push({ "mostro": index, "letterafinale": inizio})
-        i=lettera.findIndex((el) => {
-            return el.mostro == index
-        })
-     }
-    else{
-        i=lettera.findIndex((el) => {
-            return el.mostro == index
-        })
-        lettera[i].letterafinale++ 
-    }
-    VitaCalcolata.innerHTML += "," + String.fromCharCode(lettera[i].letterafinale) + ": " + dadiCalcolo;
-    console.log(lettera);
-}
-
-function cancellaVitaMostri(index) {
-    index = index.replace("vita", "")
-    // console.log(index);
-    let VitaCalcolata = document.querySelector(`#${index}`)
-    index = index.replace("mostro", "")
-    // console.log(index);
-    VitaCalcolata.innerHTML = monsterManual.monsters[index].HP.Notes
-    let i=lettera.findIndex((el) => {
-        return el.mostro == index
-    })
-    inizio ='A'.charCodeAt(0)
-    lettera[i].letterafinale=inizio-1; 
-
-}
-
-
-function rollDice(rolls = 1, die = 6) {
-    console.log("inizio calcolo");
-    let diceSum = 0;
-    for (let i = 0; i < rolls; i++) {
-        let resDice = Math.floor(Math.random() * (die) + 1);
-        console.log(resDice);
-        diceSum += resDice;
-    }
-    return diceSum
 }

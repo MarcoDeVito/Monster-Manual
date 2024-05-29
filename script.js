@@ -12,6 +12,13 @@ let perfect = document.querySelector('#perfect');
 let masterless = document.querySelector('#masterless');
 let research;
 let lettera = []
+let masterlessSave = localStorage.getItem('Masterless');
+    if (masterlessSave == 'true') {
+        masterless.checked=true
+    }
+    else{
+        masterless.checked=false
+    }
 
 
 
@@ -21,13 +28,13 @@ let requestURL = 'https://marcodevito.github.io/Monster-Manual/Monster-Manual-or
 
 
 fetch(requestURL).then((response) => response.json()).then((data) => {
-    let masterlessSave = localStorage.getItem('Masterless');
-    if (masterlessSave == 'true') {
-        masterless.checked=true
-    }
-    else{
-        masterless.checked=false
-    }
+    // let masterlessSave = localStorage.getItem('Masterless');
+    // if (masterlessSave == 'true') {
+    //     masterless.checked=true
+    // }
+    // else{
+    //     masterless.checked=false
+    // }
     console.log(data);
     monsterManual = data;
     console.log(monsterManual.monsters[7]);

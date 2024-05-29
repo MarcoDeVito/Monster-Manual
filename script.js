@@ -16,63 +16,66 @@ let lettera = []
 
 
 
+
 let requestURL = 'https://marcodevito.github.io/Monster-Manual/Monster-Manual-ord.JSON';
 
 
 fetch(requestURL).then((response) => response.json()).then((data) => {
-    
- console.log(data);
- monsterManual = data;
- console.log(monsterManual.monsters[7]);
-
-
-
-// btn1.addEventListener('click', () => {
-//     if (search.value != 0) {
-//         findMoster(search.value);
-//         search.value = "";
-//     }
-
-// })
-
-search.addEventListener("input", () => {
-    
-    if (search.value != 0) {
-        findMoster(search.value);
-        // search.value = "";
+    let masterlessSave = localStorage.getItem('Masterless');
+    if (masterlessSave == 'true') {
+        masterless.checked=true
     }
-  
-});
-
-clear.addEventListener('click', () => {
-    wrapper.innerHTML = "";
-    search.value="";
-    lettera=[]
-    console.log(start.checked);
-    console.log(include.checked);
-    console.log(perfect.checked);
+    else{
+        masterless.checked=false
+    }
+    console.log(data);
+    monsterManual = data;
+    console.log(monsterManual.monsters[7]);
 
 
 
-})
+    // btn1.addEventListener('click', () => {
+    //     if (search.value != 0) {
+    //         findMoster(search.value);
+    //         search.value = "";
+    //     }
 
-let radios = document.querySelectorAll(".form-check-input")
+    // })
 
+    search.addEventListener("input", () => {
 
-radios.forEach(button => {
-    button.addEventListener("click", () => {  
         if (search.value != 0) {
             findMoster(search.value);
-         
+            // search.value = "";
         }
+
     });
 
-})
+    clear.addEventListener('click', () => {
+        wrapper.innerHTML = "";
+        search.value = "";
+        lettera = []
+        console.log(start.checked);
+        console.log(include.checked);
+        console.log(perfect.checked);
 
 
 
+    })
+
+    let radios = document.querySelectorAll(".form-check-input")
 
 
+    radios.forEach(button => {
+        button.addEventListener("click", () => {
+            if (search.value) {
+                
+                findMoster(search.value);
+
+            }
+        });
+
+    })
 
 });
 
@@ -185,19 +188,19 @@ function CalcoloVita(index) {
     console.log(dadiCalcolo);
     if (lettera.findIndex((el) => {
         return el.mostro == index
-    }) == -1) { 
-        
-        inizio ='A'.charCodeAt(0)
-        lettera.push({ "mostro": index, "letterafinale": inizio})
-        i=lettera.findIndex((el) => {
+    }) == -1) {
+
+        inizio = 'A'.charCodeAt(0)
+        lettera.push({ "mostro": index, "letterafinale": inizio })
+        i = lettera.findIndex((el) => {
             return el.mostro == index
         })
-     }
-    else{
-        i=lettera.findIndex((el) => {
+    }
+    else {
+        i = lettera.findIndex((el) => {
             return el.mostro == index
         })
-        lettera[i].letterafinale++ 
+        lettera[i].letterafinale++
     }
     VitaCalcolata.innerHTML += "," + String.fromCharCode(lettera[i].letterafinale) + ": " + dadiCalcolo;
     console.log(lettera);
@@ -210,11 +213,11 @@ function cancellaVitaMostri(index) {
     index = index.replace("mostro", "")
     // console.log(index);
     VitaCalcolata.innerHTML = monsterManual.monsters[index].HP.Notes
-    let i=lettera.findIndex((el) => {
+    let i = lettera.findIndex((el) => {
         return el.mostro == index
     })
-    inizio ='A'.charCodeAt(0)
-    lettera[i].letterafinale=inizio-1; 
+    inizio = 'A'.charCodeAt(0)
+    lettera[i].letterafinale = inizio - 1;
 
 }
 
@@ -244,7 +247,7 @@ function findMoster(search) {
     }
     search = search.trim()
     // if (notFound) {
-        wrapper.innerHTML = "";
+    wrapper.innerHTML = "";
     //     notFound = false;
     // }
     monsterManual.monsters.forEach((element, mostroIndex) => {
@@ -291,7 +294,7 @@ function findMoster(search) {
 
             i++;
             numID++;
-            
+
             let articolo = document.createElement('article');
             articolo.setAttribute('id', `article${numID}`)
             articolo.classList.add("col-12", "mt-4", "col-md-6", "col-xl-4")
@@ -299,16 +302,16 @@ function findMoster(search) {
             <p class="text-center">${element.Type}</p>
             <hr>
             `;
-            
+
             if (!masterless.checked) {
-                
+
                 articolo.innerHTML += `
                 <p><strong>Armor Class:</strong> ${element.AC.Value} ${element.AC.Notes}</p>
                 <p><strong>HP:</strong> ${element.HP.Value} <button class="vitaMostro" id="mostro${mostroIndex}" onClick="CalcoloVita(this.id)">${element.HP.Notes}</button><button class="canc1" id="vitamostro${mostroIndex}" onClick="cancellaVitaMostri(this.id)">X</button>
                 </p>
                 `;
             }
-            
+
             articolo.innerHTML += `
             <p><strong>Speed:</strong> ${calcoloDistanze(element.Speed)}</p>
             <p><strong>CR:</strong> ${calculatePE(element.Challenge)}</p>
@@ -363,5 +366,11 @@ function findMoster(search) {
     else {
         console.log(`trovate ${i} entry`);
     }
+   
 
 }
+
+masterless.addEventListener("input", () => {
+
+    localStorage.setItem('Masterless', masterless.checked);
+})

@@ -46,6 +46,7 @@ search.addEventListener("input", () => {
 
 clear.addEventListener('click', () => {
     wrapper.innerHTML = "";
+    search.value="";
     lettera=[]
     console.log(start.checked);
     console.log(include.checked);

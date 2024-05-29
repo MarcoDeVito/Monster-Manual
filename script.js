@@ -9,6 +9,7 @@ let numID = 0;
 let start = document.querySelector('#start');
 let include = document.querySelector('#include');
 let perfect = document.querySelector('#perfect');
+let masterless = document.querySelector('#masterless');
 let research;
 let lettera = []
 
@@ -19,6 +20,7 @@ let requestURL = 'https://marcodevito.github.io/Monster-Manual/Monster-Manual-or
 
 
 fetch(requestURL).then((response) => response.json()).then((data) => {
+    
  console.log(data);
  monsterManual = data;
  console.log(monsterManual.monsters[7]);
@@ -82,6 +84,67 @@ function rollDice(rolls = 1, die = 6) {
         diceSum += resDice;
     }
     return diceSum
+}
+
+function calculatePE(sfidaString) {
+    let pe;
+    switch (sfidaString) {
+        case "0":
+            pe = "0 o 10";
+            break;
+        case "1/8":
+            pe = "25";
+            break;
+        case "1/4":
+            pe = "50";
+            break;
+        case "1/2":
+            pe = "100";
+            break;
+        case "1":
+            pe = "200";
+            break;
+        case "2":
+            pe = "450";
+            break;
+        case "3":
+            pe = "700";
+            break;
+        case "4":
+            pe = "1.100";
+            break;
+        case "5":
+            pe = "1.800";
+            break;
+        case "6":
+            pe = "2.300";
+            break;
+        case "7":
+            pe = "2.900";
+            break;
+        case "8":
+            pe = "3.900";
+            break;
+        case "9":
+            pe = "5.000";
+            break;
+        case "10":
+            pe = "5.900";
+            break;
+        case "11":
+            pe = "7.200";
+            break;
+        case "12":
+            pe = "8.400";
+            break;
+        case "13":
+            pe = "10.000";
+            break;
+        default:
+            pe = "Invalid Sfida";
+    }
+
+    return sfidaString + ", " + pe + " PE";
 }
 
 function CalcoloVita(index) {
@@ -227,20 +290,27 @@ function findMoster(search) {
 
             i++;
             numID++;
-
+            
             let articolo = document.createElement('article');
             articolo.setAttribute('id', `article${numID}`)
             articolo.classList.add("col-12", "mt-4", "col-md-6", "col-xl-4")
             articolo.innerHTML = `<h2>${element.Name}</h2>
             <p class="text-center">${element.Type}</p>
             <hr>
-            <p><strong>Armor Class:</strong> ${element.AC.Value} ${element.AC.Notes}</p>
-            <p><strong>HP:</strong> ${element.HP.Value} <button class="vitaMostro" id="mostro${mostroIndex}" onClick="CalcoloVita(this.id)">${element.HP.Notes}</button><button class="canc1" id="vitamostro${mostroIndex}" onClick="cancellaVitaMostri(this.id)">X</button>
-            </p>
+            `;
+            
+            if (!masterless.checked) {
+                
+                articolo.innerHTML += `
+                <p><strong>Armor Class:</strong> ${element.AC.Value} ${element.AC.Notes}</p>
+                <p><strong>HP:</strong> ${element.HP.Value} <button class="vitaMostro" id="mostro${mostroIndex}" onClick="CalcoloVita(this.id)">${element.HP.Notes}</button><button class="canc1" id="vitamostro${mostroIndex}" onClick="cancellaVitaMostri(this.id)">X</button>
+                </p>
+                `;
+            }
+            
+            articolo.innerHTML += `
             <p><strong>Speed:</strong> ${calcoloDistanze(element.Speed)}</p>
-
-
-
+            <p><strong>CR:</strong> ${calculatePE(element.Challenge)}</p>
             <hr>
             <div class="container-fluid">
                     <div class="row justify-content-center text-center">

@@ -13908,7 +13908,7 @@
                 },
                 {
                     "Name": "Illumination",
-                    "Content": "The elemental sheds bright light in a 30-foot radius and dim light in an additional 30 ft..",
+                    "Content": "The elemental sheds bright light in a 30-foot radius and dim light in an additional 30 ft.",
                     "Usage": ""
                 },
                 {
@@ -18759,7 +18759,7 @@
             "InitiativeAdvantage": false,
             "Speed": [
                 "10 ft.",
-                "climb 3 m."
+                "climb 10 ft."
             ],
             "Abilities": {
                 "Str": 12,
@@ -18845,7 +18845,7 @@
             "InitiativeAdvantage": false,
             "Speed": [
                 "10 ft.",
-                "climb 3 m."
+                "climb 10 ft."
             ],
             "Abilities": {
                 "Str": 12,
@@ -23737,7 +23737,7 @@
                 },
                 {
                     "Name": "Running Leap",
-                    "Content": "With a 10-foot running start, the lion can long jump up to 25 ft..",
+                    "Content": "With a 10-foot running start, the lion can long jump up to 25 ft.",
                     "Usage": ""
                 }
             ],
@@ -27039,7 +27039,7 @@
             "InitiativeAdvantage": false,
             "Speed": [
                 "10 ft.",
-                "climb 3 m."
+                "climb 10 ft."
             ],
             "Abilities": {
                 "Str": 15,
@@ -30761,7 +30761,7 @@
             "InitiativeAdvantage": false,
             "Speed": [
                 "10 ft.",
-                "climb 3 m."
+                "climb 10 ft."
             ],
             "Abilities": {
                 "Str": 18,

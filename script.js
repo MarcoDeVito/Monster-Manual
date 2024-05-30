@@ -37,7 +37,7 @@ fetch(requestURL).then((response) => response.json()).then((data) => {
     // }
     console.log(data);
     monsterManual = data;
-    console.log(monsterManual.monsters[7]);
+    console.log(monsterManual.monsters[210]);
 
 
 
@@ -284,7 +284,9 @@ function findMoster(search) {
                             accomp[index] = "m."
 
                         }
-
+                        else if (el == "climb") {
+                            accomp[index] = "scalare"
+                        }
 
                         else if (!isNaN(parseInt(el))) {
                             accomp[index] = el * 0.3
@@ -305,7 +307,7 @@ function findMoster(search) {
             let articolo = document.createElement('article');
             articolo.setAttribute('id', `article${numID}`)
             articolo.classList.add("col-12", "mt-4", "col-md-6", "col-xl-4")
-            articolo.innerHTML = `<h2>${element.Name}</h2>
+            articolo.innerHTML = `<h2><a href="https://www.google.com/search?q=${element.Name}+5e+token&udm=2" target="_blank" >${element.Name}</a></h2>
             <p class="text-center">${element.Type}</p>
             <hr>
             `;

@@ -24,7 +24,7 @@ let masterlessSave = localStorage.getItem('Masterless');
 
 
 
-let requestURL = 'https://marcodevito.github.io/Monster-Manual/Monster-Manual-ord.JSON';
+let requestURL = 'Monster-Manual-ord.JSON';
 
 
 fetch(requestURL).then((response) => response.json()).then((data) => {
@@ -362,9 +362,13 @@ function findMoster(search) {
                 <hr>`;
             element.Actions.forEach(el => articolo.innerHTML += `<p><strong>${el.Name}:</strong> ${el.Content} </p>
             <button class="canc" id="${numID}" onClick="canc(this.id)">X</button>`);
-            articolo.innerHTML += `<hr><h5><strong>Tratti</strong><h5> `
+            
+            
+            if((typeof(element.Traits[0])!='undefined')){
+                articolo.innerHTML += `<hr><h5><strong>Tratti</strong><h5> `
             element.Traits.forEach(el => articolo.innerHTML += `<p><strong>${el.Name}:</strong> ${el.Content} ${el.Usage}</p>
             <button class="canc" id="${numID}" onClick="canc(this.id)">X</button>`);
+            }
             wrapper.appendChild(articolo);
         }
     });
@@ -375,9 +379,9 @@ function findMoster(search) {
 
 
     }
-    else {
-        console.log(`trovate ${i} entry`);
-    }
+    // else {
+    //     console.log(`trovate ${i} entry`);
+    // }
    
 
 }

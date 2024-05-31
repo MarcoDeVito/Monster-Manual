@@ -38,6 +38,8 @@ fetch(requestURL).then((response) => response.json()).then((data) => {
     console.log(data);
     monsterManual = data;
     console.log(monsterManual.monsters[210]);
+    search.value=localStorage.getItem("Chiave-Ricerca")
+    findMoster(search.value);
 
 
 
@@ -52,19 +54,21 @@ fetch(requestURL).then((response) => response.json()).then((data) => {
     search.addEventListener("input", () => {
 
         if (search.value != 0) {
+            localStorage.setItem("Chiave-Ricerca",search.value);
             findMoster(search.value);
             // search.value = "";
         }
 
+
+
     });
 
     clear.addEventListener('click', () => {
+        localStorage.removeItem("Chiave-Ricerca");
         wrapper.innerHTML = "";
         search.value = "";
         lettera = []
-        console.log(start.checked);
-        console.log(include.checked);
-        console.log(perfect.checked);
+        
 
 
 
